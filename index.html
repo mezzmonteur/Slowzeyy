@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slowzeyy - Créateur de Contenu</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#1e3a8a", secondary: "#3b82f6" },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      :root {
+      --primary: #1e3a8a;
+      --secondary: #3b82f6;
+      --accent: #60a5fa;
+      --dark: #0f172a;
+      --light: #f8fafc;
+      }
+      @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+      }
+      @keyframes float-random {
+        0%, 100% {
+          transform: translate(0, 0);
+        }
+        25% {
+          transform: translate(var(--random-x1), var(--random-y1));
+        }
+        50% {
+          transform: translate(var(--random-x2), var(--random-y2));
+        }
+        75% {
+          transform: translate(var(--random-x3), var(--random-y3));
+        }
+      }
+      .social-icon-orbit {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        transition: transform 0.3s ease;
+        animation: float-random 20s ease-in-out infinite;
+      }
+      .social-icon-orbit:hover {
+        transform: translate(-50%, -50%) scale(1.2);
+        animation-play-state: paused;
+      }
+      .social-icon-orbit.youtube {
+        --random-x1: -100px;
+        --random-y1: -50px;
+        --random-x2: 50px;
+        --random-y2: 100px;
+        --random-x3: -70px;
+        --random-y3: 30px;
+      }
+      .social-icon-orbit.tiktok {
+        --random-x1: 100px;
+        --random-y1: -70px;
+        --random-x2: -60px;
+        --random-y2: 50px;
+        --random-x3: 80px;
+        --random-y3: -30px;
+        animation-delay: -7s;
+      }
+      .social-icon-orbit.discord {
+        --random-x1: -50px;
+        --random-y1: 100px;
+        --random-x2: 70px;
+        --random-y2: -60px;
+        --random-x3: -90px;
+        --random-y3: -40px;
+        animation-delay: -14s;
+      }
+      .feedback-3d-container {
+      perspective: 1000px;
+      transform-style: preserve-3d;
+      }
+      .feedback-3d-content {
+      transition: transform 0.1s linear;
+      transform-style: preserve-3d;
+      }
+      @keyframes slideDown {
+      from {
+      opacity: 0;
+      transform: translateY(-100%);
+      }
+      to {
+      opacity: 1;
+      transform: translateY(0);
+      }
+      }
+      @keyframes slideUp {
+      from {
+      opacity: 1;
+      transform: translateY(0);
+      }
+      to {
+      opacity: 0;
+      transform: translateY(-100%);
+      }
+      }
+      body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--dark);
+      color: var(--light);
+      overflow-x: hidden;
+      }
+      .font-orbitron {
+      font-family: 'Orbitron', sans-serif;
+      }
+      .glow {
+      box-shadow: 0 0 15px rgba(96, 165, 250, 0.5);
+      }
+      .glow-text {
+      text-shadow: 0 0 10px rgba(96, 165, 250, 0.7);
+      }
+      .tilt-button {
+      transform-style: preserve-3d;
+      transition: transform 0.3s ease, scale 0.3s ease, box-shadow 0.3s ease;
+      }
+      .tilt-button:hover {
+      scale: 1.1;
+      box-shadow: 0 0 20px rgba(96, 165, 250, 0.7);
+      }
+      .grid-bg {
+      background-image:
+      linear-gradient(rgba(30, 58, 138, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(30, 58, 138, 0.05) 1px, transparent 1px);
+      background-size: 20px 20px;
+      background-position: center center;
+      }
+      .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(96, 165, 250, 0.3);
+      pointer-events: none;
+      animation: floatParticle 15s linear infinite;
+      }
+      @keyframes floatParticle {
+      0% {
+      transform: translate(0, 0) rotate(0deg);
+      }
+      33% {
+      transform: translate(30px, -30px) rotate(120deg);
+      }
+      66% {
+      transform: translate(-30px, 30px) rotate(240deg);
+      }
+      100% {
+      transform: translate(0, 0) rotate(360deg);
+      }
+      }
+      .shooting-star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.8), transparent);
+      pointer-events: none;
+      transform-origin: right;
+      animation: shootingStar 3s linear infinite;
+      opacity: 0;
+      }
+      @keyframes shootingStar {
+      0% {
+      transform: translateX(0) scaleX(0);
+      opacity: 0;
+      }
+      50% {
+      transform: translateX(-100px) scaleX(1);
+      opacity: 1;
+      }
+      100% {
+      transform: translateX(-200px) scaleX(0);
+      opacity: 0;
+      }
+      }
+      @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+      }
+      .float {
+      animation: float 3s ease-in-out infinite;
+      }
+      .float-delay-1 {
+      animation-delay: 0.5s;
+      }
+      .float-delay-2 {
+      animation-delay: 1s;
+      }
+      .neon-border {
+      position: relative;
+      }
+      .neon-border::after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+      border-radius: inherit;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      }
+      .neon-border:hover::after {
+      opacity: 1;
+      }
+      .gradient-text {
+      background: linear-gradient(90deg, var(--secondary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      }
+      .futuristic-input {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(96, 165, 250, 0.3);
+      transition: all 0.3s ease;
+      }
+      .futuristic-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 15px rgba(96, 165, 250, 0.5);
+      }
+      .animated-bg {
+      background: linear-gradient(45deg, #0f172a, #1e3a8a, #0f172a);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      }
+      @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+      }
+      .line {
+      position: absolute;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      width: 100%;
+      animation: line-animation 8s linear infinite;
+      opacity: 0.2;
+      }
+      @keyframes line-animation {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(100vh); }
+      }
+      .success-message {
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.5s ease;
+      }
+      .success-message.show {
+      transform: translateY(0);
+      opacity: 1;
+      }
+    </style>
+  </head>
+  <body class="animated-bg min-h-screen">
+    <!-- Animated Background Elements -->
+    <div class="fixed inset-0 grid-bg opacity-30 pointer-events-none"></div>
+    <div id="particles" class="fixed inset-0 pointer-events-none"></div>
+    <!-- Animated Lines -->
+    <div class="line" style="top: 15%;"></div>
+    <div class="line" style="top: 35%;"></div>
+    <div class="line" style="top: 55%;"></div>
+    <div class="line" style="top: 75%;"></div>
+    <!-- Header -->
+    <header class="relative z-10 px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center">
+        <img
+          src="https://cdn.discordapp.com/attachments/1372913409489633292/1372975745240137738/slowzeyy_gros_zizi_pdp.png?ex=6828bace&is=6827694e&hm=f064421eba29a6d6dc4d0e256ba608eadfc1e1e8ce08bc3ba08133e98977e377&"
+          alt="Slowzeyy Logo"
+          class="w-12 h-12 rounded-full border-2 border-accent glow"
+        />
+        <h1 class="ml-3 text-2xl font-bold font-orbitron gradient-text">
+          Slowzeyy
+        </h1>
+      </div>
+      <nav class="hidden md:flex items-center space-x-8">
+        <a
+          href="#accueil"
+          class="tilt-button relative px-4 py-2 text-white font-medium hover:text-accent transition-colors"
+          >Accueil</a
+        >
+        <a
+          href="#contenu"
+          class="tilt-button relative px-4 py-2 text-white font-medium hover:text-accent transition-colors"
+          >Contenu</a
+        >
+        <a
+          href="#reseaux"
+          class="tilt-button relative px-4 py-2 text-white font-medium hover:text-accent transition-colors"
+          >Réseaux</a
+        >
+        <a
+          href="#feedback"
+          class="tilt-button relative px-4 py-2 text-white font-medium hover:text-accent transition-colors"
+          >Feedback</a
+        >
+      </nav>
+      <button
+        class="md:hidden w-10 h-10 flex items-center justify-center text-white"
+      >
+        <i class="ri-menu-line ri-lg"></i>
+      </button>
+    </header>
+    <!-- Hero Section -->
+    <section
+      id="accueil"
+      class="relative min-h-[90vh] flex items-center justify-center px-6 py-20"
+    >
+      <div
+        id="thankMessage"
+        class="fixed top-0 left-1/2 -translate-x-1/2 transform bg-green-500/20 border border-green-500/30 text-green-400 px-8 py-4 rounded-full z-50 opacity-0 -translate-y-full transition-all duration-700"
+      >
+        Merci <span class="font-bold"></span> pour votre feedback !
+      </div>
+      <div class="container mx-auto flex flex-col items-center justify-center">
+        <div class="relative w-[300px] h-[300px] mb-12 mx-auto">
+          <a
+            href="https://www.youtube.com/@Slowzeyy"
+            target="_blank"
+            class="social-icon-orbit youtube"
+          >
+            <i class="ri-youtube-fill ri-7x text-red-500"></i>
+          </a>
+          <a
+            href="https://www.tiktok.com/@celestial.arena1"
+            target="_blank"
+            class="social-icon-orbit tiktok"
+          >
+            <i class="ri-tiktok-fill ri-7x text-white"></i>
+          </a>
+          <a
+            href="https://discord.gg/H6ycDbPXUG"
+            target="_blank"
+            class="social-icon-orbit discord"
+          >
+            <i class="ri-discord-fill ri-7x text-indigo-400"></i>
+          </a>
+        </div>
+        <div class="flex flex-col space-y-8">
+          <a
+            href="https://www.youtube.com/@Slowzeyy"
+            target="_blank"
+            class="tilt-button neon-border bg-primary text-white px-8 py-3 !rounded-button font-bold uppercase tracking-wider whitespace-nowrap"
+          >
+            Découvrir
+          </a>
+          <a
+            href="#contenu"
+            class="tilt-button neon-border bg-transparent border-2 border-accent text-white px-8 py-3 !rounded-button font-bold uppercase tracking-wider whitespace-nowrap"
+          >
+            Mon Contenu
+          </a>
+        </div>
+      </div>
+    </section>
+    <!-- Content Section -->
+    <section id="contenu" class="relative py-20 px-6">
+      <div class="container mx-auto">
+        <div class="text-center mb-16">
+          <h2
+            class="text-3xl md:text-5xl font-bold mb-4 font-orbitron gradient-text"
+          >
+            Mon Contenu
+          </h2>
+          <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+            Découvrez mes dernières créations et rejoignez-moi pour des
+            aventures épiques dans l'univers du gaming.
+          </p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- YouTube -->
+          <div
+            class="group relative overflow-hidden rounded-2xl border border-accent/20 transition-all duration-300 hover:border-accent/60 hover:scale-[1.02]"
+          >
+            <div
+              class="absolute inset-0 bg-gradient-to-b from-transparent to-primary/80 z-10"
+            ></div>
+            <div
+              class="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-medium z-20 flex items-center"
+            >
+              <i class="ri-youtube-fill mr-1"></i> YouTube
+            </div>
+            <div
+              class="bg-dark/80 aspect-video flex items-center justify-center"
+            >
+              <div
+                class="w-16 h-16 flex items-center justify-center text-red-500 opacity-80 group-hover:opacity-100 transition-opacity"
+              >
+                <i class="ri-play-circle-fill ri-3x"></i>
+              </div>
+            </div>
+            <div class="relative z-20 p-6">
+              <h3 class="text-xl font-bold mb-4">Celestial Arena</h3>
+              <a
+                href="https://www.youtube.com/@Slowzeyy"
+                target="_blank"
+                class="tilt-button inline-flex items-center text-white bg-red-600 px-4 py-2 !rounded-button whitespace-nowrap"
+              >
+                <i class="ri-youtube-fill mr-2"></i> S'abonner
+              </a>
+            </div>
+          </div>
+          <!-- TikTok -->
+          <div
+            class="group relative overflow-hidden rounded-2xl border border-accent/20 transition-all duration-300 hover:border-accent/60 hover:scale-[1.02]"
+          >
+            <div
+              class="absolute inset-0 bg-gradient-to-b from-transparent to-primary/80 z-10"
+            ></div>
+            <div
+              class="absolute top-4 right-4 bg-black text-white px-3 py-1 rounded-full text-sm font-medium z-20 flex items-center"
+            >
+              <i class="ri-tiktok-fill mr-1"></i> TikTok
+            </div>
+            <div
+              class="bg-dark/80 aspect-video flex items-center justify-center"
+            >
+              <div
+                class="w-16 h-16 flex items-center justify-center text-white opacity-80 group-hover:opacity-100 transition-opacity"
+              >
+                <i class="ri-vidicon-fill ri-3x"></i>
+              </div>
+            </div>
+            <div class="relative z-20 p-6">
+              <h3 class="text-xl font-bold mb-4">Clips Viraux</h3>
+              <a
+                href="https://www.tiktok.com/@celestial.arena1"
+                target="_blank"
+                class="tilt-button inline-flex items-center text-white bg-black px-4 py-2 !rounded-button whitespace-nowrap"
+              >
+                <i class="ri-tiktok-fill mr-2"></i> Suivre
+              </a>
+            </div>
+          </div>
+          <!-- Discord -->
+          <div
+            class="group relative overflow-hidden rounded-2xl border border-accent/20 transition-all duration-300 hover:border-accent/60 hover:scale-[1.02]"
+          >
+            <div
+              class="absolute inset-0 bg-gradient-to-b from-transparent to-primary/80 z-10"
+            ></div>
+            <div
+              class="absolute top-4 right-4 bg-indigo-600 text-white px-3 py-1 rounded-full text-sm font-medium z-20 flex items-center"
+            >
+              <i class="ri-discord-fill mr-1"></i> Discord
+            </div>
+            <div
+              class="bg-dark/80 aspect-video flex items-center justify-center"
+            >
+              <div
+                class="w-16 h-16 flex items-center justify-center text-indigo-400 opacity-80 group-hover:opacity-100 transition-opacity"
+              >
+                <i class="ri-group-fill ri-3x"></i>
+              </div>
+            </div>
+            <div class="relative z-20 p-6">
+              <h3 class="text-xl font-bold mb-4">Communauté</h3>
+              <a
+                href="https://discord.gg/H6ycDbPXUG"
+                target="_blank"
+                class="tilt-button inline-flex items-center text-white bg-indigo-600 px-4 py-2 !rounded-button whitespace-nowrap"
+              >
+                <i class="ri-discord-fill mr-2"></i> Rejoindre
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Social Networks Section -->
+    <section id="reseaux" class="relative py-20 px-6 bg-dark/50">
+      <div class="container mx-auto">
+        <div class="text-center mb-16">
+          <h2
+            class="text-3xl md:text-5xl font-bold mb-4 font-orbitron gradient-text"
+          >
+            Mes Réseaux
+          </h2>
+          <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+            Restez connectés et ne manquez aucune de mes nouvelles créations en
+            me suivant sur tous mes réseaux.
+          </p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <!-- YouTube -->
+          <a
+            href="https://www.youtube.com/@Slowzeyy"
+            target="_blank"
+            class="tilt-button group flex flex-col items-center p-8 rounded-2xl bg-dark/80 border border-accent/20 transition-all duration-300 hover:border-red-500/60"
+          >
+            <div
+              class="w-20 h-20 flex items-center justify-center text-red-500 mb-4 float"
+            >
+              <i class="ri-youtube-fill ri-4x"></i>
+            </div>
+            <h3
+              class="text-xl font-bold mb-2 group-hover:text-red-400 transition-colors"
+            >
+              YouTube
+            </h3>
+            <p class="text-gray-400 text-center">
+              Vidéos longues, gameplay commentés et analyses
+            </p>
+          </a>
+          <!-- TikTok -->
+          <a
+            href="https://www.tiktok.com/@celestial.arena1"
+            target="_blank"
+            class="tilt-button group flex flex-col items-center p-8 rounded-2xl bg-dark/80 border border-accent/20 transition-all duration-300 hover:border-white/60"
+          >
+            <div
+              class="w-20 h-20 flex items-center justify-center text-white mb-4 float float-delay-1"
+            >
+              <i class="ri-tiktok-fill ri-4x"></i>
+            </div>
+            <h3
+              class="text-xl font-bold mb-2 group-hover:text-gray-200 transition-colors"
+            >
+              TikTok
+            </h3>
+            <p class="text-gray-400 text-center">
+              Clips courts, moments forts et tendances
+            </p>
+          </a>
+          <!-- Discord -->
+          <a
+            href="https://discord.gg/H6ycDbPXUG"
+            target="_blank"
+            class="tilt-button group flex flex-col items-center p-8 rounded-2xl bg-dark/80 border border-accent/20 transition-all duration-300 hover:border-indigo-500/60"
+          >
+            <div
+              class="w-20 h-20 flex items-center justify-center text-indigo-400 mb-4 float float-delay-2"
+            >
+              <i class="ri-discord-fill ri-4x"></i>
+            </div>
+            <h3
+              class="text-xl font-bold mb-2 group-hover:text-indigo-300 transition-colors"
+            >
+              Discord
+            </h3>
+            <p class="text-gray-400 text-center">
+              Communauté, événements et discussions
+            </p>
+          </a>
+        </div>
+      </div>
+    </section>
+    <!-- Feedback Section -->
+    <section id="feedback" class="relative py-20 px-6">
+      <div class="container mx-auto max-w-4xl">
+        <div class="text-center mb-16">
+          <h2
+            class="text-3xl md:text-5xl font-bold mb-4 font-orbitron gradient-text"
+          >
+            Votre Feedback
+          </h2>
+          <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+            Partagez vos idées, suggestions ou simplement un message pour me
+            soutenir.
+          </p>
+        </div>
+        <div class="relative" id="feedbackContainer">
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-3xl blur-3xl opacity-30"
+          ></div>
+          <div
+            class="relative bg-dark/80 border border-accent/30 p-8 rounded-3xl backdrop-blur-sm hover:border-accent/50 transition-all duration-300"
+          >
+            <form id="feedbackForm" class="space-y-6">
+              <div>
+                <label
+                  for="pseudo"
+                  class="block text-sm font-medium text-gray-300 mb-2"
+                  >Pseudo</label
+                >
+                <input
+                  type="text"
+                  id="pseudo"
+                  name="pseudo"
+                  required
+                  class="futuristic-input w-full px-4 py-3 rounded-lg text-white border-none focus:ring-2 focus:ring-accent outline-none"
+                  placeholder="Votre pseudo"
+                />
+              </div>
+              <div>
+                <label
+                  for="message"
+                  class="block text-sm font-medium text-gray-300 mb-2"
+                  >Message</label
+                >
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="4"
+                  required
+                  class="futuristic-input w-full px-4 py-3 rounded-lg text-white border-none focus:ring-2 focus:ring-accent outline-none"
+                  placeholder="Votre message..."
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                class="tilt-button neon-border w-full bg-primary text-white px-6 py-3 !rounded-button font-bold uppercase tracking-wider whitespace-nowrap"
+              >
+                Envoyer
+              </button>
+            </form>
+            <div
+              id="successMessage"
+              class="success-message mt-6 p-4 rounded-lg bg-green-500/20 border border-green-500/30 text-green-400 text-center hidden"
+            >
+              <div class="flex items-center justify-center">
+                <i class="ri-check-line ri-lg mr-2"></i>
+                <span
+                  >Merci pour votre message ! Il a été envoyé avec succès.</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer class="relative py-12 px-6 bg-dark/70 border-t border-accent/20">
+      <div class="container mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="flex items-center mb-6 md:mb-0">
+            <img
+              src="https://cdn.discordapp.com/attachments/1372913409489633292/1372975745240137738/slowzeyy_gros_zizi_pdp.png?ex=6828bace&is=6827694e&hm=f064421eba29a6d6dc4d0e256ba608eadfc1e1e8ce08bc3ba08133e98977e377&"
+              alt="Slowzeyy Logo"
+              class="w-10 h-10 rounded-full border border-accent/50"
+            />
+            <h3 class="ml-3 text-xl font-bold font-orbitron gradient-text">
+              Slowzeyy
+            </h3>
+          </div>
+          <div class="flex space-x-6 mb-6 md:mb-0">
+            <a
+              href="https://www.youtube.com/@Slowzeyy"
+              target="_blank"
+              class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-red-500 transition-colors"
+            >
+              <i class="ri-youtube-fill ri-lg"></i>
+            </a>
+            <a
+              href="https://www.tiktok.com/@celestial.arena1"
+              target="_blank"
+              class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-white transition-colors"
+            >
+              <i class="ri-tiktok-fill ri-lg"></i>
+            </a>
+            <a
+              href="https://discord.gg/H6ycDbPXUG"
+              target="_blank"
+              class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-indigo-400 transition-colors"
+            >
+              <i class="ri-discord-fill ri-lg"></i>
+            </a>
+          </div>
+          <p class="text-sm text-gray-400">
+            © 2025 Slowzeyy. Tous droits réservés.
+          </p>
+        </div>
+      </div>
+    </footer>
+    <script>
+      // Background particles
+      document.addEventListener("DOMContentLoaded", function () {
+        const particlesContainer = document.getElementById("particles");
+        const particlesCount = 100;
+        function createParticles() {
+          for (let i = 0; i < particlesCount; i++) {
+            const particle = document.createElement("div");
+            particle.classList.add("particle");
+            const size = Math.random() * 5 + 1;
+            const posX = Math.random() * window.innerWidth;
+            const posY = Math.random() * window.innerHeight;
+            const delay = Math.random() * 5;
+            const duration = Math.random() * 10 + 10;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${posX}px`;
+            particle.style.top = `${posY}px`;
+            particle.style.opacity = Math.random() * 0.5;
+            particle.style.animationDelay = `${delay}s`;
+            particle.style.animationDuration = `${duration}s`;
+            particlesContainer.appendChild(particle);
+          }
+        }
+        function createShootingStars() {
+          setInterval(() => {
+            const star = document.createElement("div");
+            star.classList.add("shooting-star");
+            const posY = Math.random() * window.innerHeight;
+            star.style.top = `${posY}px`;
+            star.style.right = "0";
+            particlesContainer.appendChild(star);
+            setTimeout(() => {
+              star.remove();
+            }, 3000);
+          }, 2000);
+        }
+        createParticles();
+        createShootingStars();
+      });
+      // 3D Tilt Effect for buttons with RAF
+      document.addEventListener("DOMContentLoaded", function () {
+        const tiltButtons = document.querySelectorAll(".tilt-button");
+        let rafId = null;
+        tiltButtons.forEach((button) => {
+          let targetRotateX = 0;
+          let targetRotateY = 0;
+          let currentRotateX = 0;
+          let currentRotateY = 0;
+          function updateTransform() {
+            if (
+              Math.abs(currentRotateX - targetRotateX) > 0.1 ||
+              Math.abs(currentRotateY - targetRotateY) > 0.1
+            ) {
+              currentRotateX += (targetRotateX - currentRotateX) * 0.1;
+              currentRotateY += (targetRotateY - currentRotateY) * 0.1;
+              button.style.transform = `perspective(1000px) rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg) scale3d(1.1, 1.1, 1.1)`;
+              rafId = requestAnimationFrame(updateTransform);
+            } else {
+              cancelAnimationFrame(rafId);
+            }
+          }
+          button.addEventListener("mousemove", function (e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            targetRotateX = ((y - centerY) / centerY) * -15;
+            targetRotateY = ((x - centerX) / centerX) * 15;
+            if (!rafId) {
+              rafId = requestAnimationFrame(updateTransform);
+            }
+          });
+          button.addEventListener("mouseleave", function () {
+            targetRotateX = 0;
+            targetRotateY = 0;
+            if (!rafId) {
+              rafId = requestAnimationFrame(updateTransform);
+            }
+          });
+        });
+      });
+      // Smooth scrolling for anchor links
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute("href");
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+              const offset = targetId === "#contenu" ? -200 : -80;
+              window.scrollTo({
+                top: targetElement.offsetTop + offset,
+                behavior: "smooth",
+              });
+            }
+          });
+        });
+      });
+      // Discord webhook form submission
+      document.addEventListener("DOMContentLoaded", function () {
+        const feedbackForm = document.getElementById("feedbackForm");
+        const successMessage = document.getElementById("successMessage");
+        const thankMessage = document.getElementById("thankMessage");
+        if (feedbackForm) {
+          feedbackForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const pseudo = document.getElementById("pseudo").value;
+            const message = document.getElementById("message").value;
+            if (!pseudo || !message) {
+              return;
+            }
+            // Show thank message
+            thankMessage.querySelector("span").textContent = pseudo;
+            thankMessage.style.opacity = "1";
+            thankMessage.style.transform = "translate(-50%, 20px)";
+            // Hide thank message after 3 seconds
+            setTimeout(() => {
+              thankMessage.style.opacity = "0";
+              thankMessage.style.transform = "translate(-50%, -100%)";
+            }, 3000);
+            const webhookUrl =
+              "https://discord.com/api/webhooks/1372977033726005258/Hscc2jwY7x2eLm_OFN1l3vFxu9DPXSZqofUSskPmrKemM7zrsoIOFsW8RcAP67Xhh9t9";
+            const data = {
+              content: null,
+              embeds: [
+                {
+                  title: "Nouveau feedback",
+                  color: 3447003,
+                  fields: [
+                    {
+                      name: "Pseudo",
+                      value: pseudo,
+                      inline: true,
+                    },
+                    {
+                      name: "Message",
+                      value: message,
+                    },
+                  ],
+                  timestamp: new Date().toISOString(),
+                },
+              ],
+            };
+            fetch(webhookUrl, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            })
+              .then((response) => {
+                if (response.ok) {
+                  feedbackForm.reset();
+                  successMessage.classList.remove("hidden");
+                  successMessage.classList.add("show");
+                  setTimeout(() => {
+                    successMessage.classList.remove("show");
+                    setTimeout(() => {
+                      successMessage.classList.add("hidden");
+                    }, 500);
+                  }, 3000);
+                }
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
